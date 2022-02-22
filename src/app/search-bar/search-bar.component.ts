@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Metar, Station } from '../models/metar.model';
 import { Taf } from '../models/taf.model';
 import { FetchDataService } from '../services/fetch-data.service';
+import { ShareDataService } from '../services/share-data.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,12 +13,12 @@ import { FetchDataService } from '../services/fetch-data.service';
 })
 export class SearchBarComponent implements OnInit {
   query : String = "";
-  $metar? = new Observable<Metar>();
-  $station? = new Observable<Station>();
-  $taf? = new Observable<Taf>();
+  // $metar? = new Observable<Metar>();
+  // $station? = new Observable<Station>();
+  // $taf? = new Observable<Taf>();
 
 
-  constructor(private APIService: FetchDataService) { }
+  constructor(private APIService: FetchDataService, private ShareData: ShareDataService) { }
 
   ngOnInit(): void {
   }
@@ -25,22 +26,19 @@ export class SearchBarComponent implements OnInit {
   searchMetar(){
     console.log(this.query);
     this.APIService.getMetar(this.query).subscribe(data => {
-      this.$metar = data.data;
-      console.log(this.$metar);
+      this.ShareData.setMetar(data.data)
     })
   }
   searchStation(){
     console.log(this.query);
     this.APIService.getStation(this.query).subscribe(data => {
-      this.$station = data.data;
-      console.log(this.$station);
+      this.ShareData.setStation(data.data)
     })
   }
   searchTaf(){
     console.log(this.query);
     this.APIService.getTaf(this.query).subscribe(data => {
-      this.$taf = data.data;
-      console.log(this.$taf);
+      this.ShareData.setTaf(data.data)
     })
   }
 }
