@@ -31,12 +31,6 @@ export class SearchBarComponent implements OnInit {
     this.APIService.getMetar(this.query).subscribe(data => {
       this.ShareData.setMetar(data.data)
       this.metar = data.data
-
-      // data.data.forEach((item: any) => {        
-      //   this.metar?.push(item)
-      // });
-      // console.log("DATA: " + data.data);
-      //this.parentMessage = this.query
     })
   }
   searchStation(){

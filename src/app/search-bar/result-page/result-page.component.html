@@ -1,8 +1,8 @@
 <div class="container">
-    State: {{metar | json}}
-    <div class="data" *ngFor="let item in $air">
-        ICAO: {{item.icao}}
-    </div>
+    <!-- State: {{$air | json}} -->
+    <h2 class="data" *ngFor="let item of $air">
+        ICAO: {{item.icao}} <br>
+        Observerd: {{item.observed}} <br>
+        RAW: {{item.raw_text}} <br>
+    </h2>
 </div>
-
-<h1>Risultati per: {{childMessage}}</h1>

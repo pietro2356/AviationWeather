@@ -14,27 +14,24 @@ export class ResultPageComponent implements OnInit, OnChanges {
   @Input() station?: Observable<Station>;
   @Input() taf?: Observable<Taf>;
 
-  @Input() childMessage?: string;
-
   $air? = new Array<any>();
   
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes['metar'].currentValue);
-    console.log(changes['station']);
-    console.log(changes['taf']);
-    console.log(changes['childMessage']);
-    this.getData();
+    this.$air = [];
+    
+    if (!changes['metar'].firstChange) {
+      // this.metar = changes['metar'].currentValue
+      changes['metar'].currentValue.forEach((item: any) => {
+        this.$air?.push(item)
+      });
+    }
+
+
   }
 
   ngOnInit(): void {
-  }
-
-  getData(){
-    this.metar?.forEach(item => {
-      this.$air?.push(item)
-    })
   }
 
 }

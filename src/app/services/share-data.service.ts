@@ -19,8 +19,8 @@ export class ShareDataService {
   setMetar(metar: Observable<Metar>){
     this.$metar = metar;
     this.state = true;
-    console.log(this.$metar);
-    console.log(this.state);
+    // console.log(this.$metar);
+    // console.log(this.state);
   }
   setStation(station: Observable<Station>){
     this.$station = station;
