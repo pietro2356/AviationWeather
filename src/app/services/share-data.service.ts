@@ -12,16 +12,23 @@ export class ShareDataService {
   $station? = new Observable<Station>();
   $taf? = new Observable<Taf>();
 
+  state: boolean = false;
+
   constructor() { }
 
   setMetar(metar: Observable<Metar>){
     this.$metar = metar;
+    this.state = true;
+    console.log(this.$metar);
+    console.log(this.state);
   }
   setStation(station: Observable<Station>){
     this.$station = station;
+    this.state = true;
   }
   setTaf(taf: Observable<Taf>){
     this.$taf = taf;
+    this.state = true;
   }
 
   getMetar(){

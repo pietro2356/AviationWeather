@@ -1,0 +1,8 @@
+<div class="container">
+    State: {{metar | json}}
+    <div class="data" *ngFor="let item in $air">
+        ICAO: {{item.icao}}
+    </div>
+</div>
+
+<h1>Risultati per: {{childMessage}}</h1>
