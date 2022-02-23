@@ -2,10 +2,13 @@
     <mat-form-field id="item-0" appearance="fill">
         <mat-label color="warn">ICAO, IATA or Name</mat-label>
         <input matInput type="text" [(ngModel)]="query">
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="search()">
+            <mat-icon>search</mat-icon>
+        </button>
         <mat-hint align="start"><strong>{{query}}</strong> </mat-hint>
         <mat-hint align="end">{{query.length}} / 50</mat-hint>
     </mat-form-field>
-    <button id="item-1" color="primary" *ngIf="query" mat-raised-button aria-label="Button that shows a red tooltip"
+    <!-- <button id="item-1" color="primary" *ngIf="query" mat-raised-button aria-label="Button that shows a red tooltip"
         (click)="searchMetar()">
         METAR
         <mat-icon color="warn">location_on</mat-icon>
@@ -19,9 +22,7 @@
         (click)="searchTaf()">
         TAF
         <mat-icon color="warn">air</mat-icon>
-    </button>
+    </button> -->
 </div>
-
-<!-- <p>{{metar | json}}</p> -->
-<app-result-page [metar]="metar" [station]="station" [taf]="taf">
+<app-result-page [metar_tmp]="metar" [station_tmp]="station" [taf_tmp]="taf" [data]="data">
 </app-result-page>

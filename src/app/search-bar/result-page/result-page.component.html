@@ -1,8 +1,13 @@
-<div class="container">
-    <!-- State: {{$air | json}} -->
+<!-- <div class="container">
     <h2 class="data" *ngFor="let item of $air">
         ICAO: {{item.icao}} <br>
         Observerd: {{item.observed}} <br>
         RAW: {{item.raw_text}} <br>
     </h2>
-</div>
+</div> -->
+
+<mat-tab-group>
+    <mat-tab *ngIf="metar_stat" label="Metar"> Content 1 </mat-tab>
+    <mat-tab *ngIf="station_stat" label="Station"> Content 2 </mat-tab>
+    <mat-tab *ngIf="taf_stat" label="Taf"> Content 3 </mat-tab>
+</mat-tab-group>
