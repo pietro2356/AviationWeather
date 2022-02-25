@@ -27,8 +27,8 @@ export class FetchDataService {
 
   constructor(public http: HttpClient) { }
 
-  getMetar(code: String): Observable<any> {
-    return this.http.get(this.metarAPI + code + "/decoded", {
+  getMetar(code: String): Observable<Metar[]> {
+    return this.http.get<Metar[]>(this.metarAPI + code + "/decoded", {
       headers: this.httpOptions.headers
     });
   }

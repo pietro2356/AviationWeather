@@ -1,113 +1,134 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { Data } from 'src/app/models/data.model';
 import { Metar } from 'src/app/models/metar.model';
 import { Station } from 'src/app/models/station.model';
 import { Taf } from 'src/app/models/taf.model';
-
+import { FetchDataService } from 'src/app/services/fetch-data.service';
 @Component({
   selector: 'app-result-page',
   templateUrl: './result-page.component.html',
-  styleUrls: ['./result-page.component.css']
+  styleUrls: ['./result-page.component.css'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResultPageComponent implements OnInit, OnChanges {
 
-  @Input() metar_tmp?: Observable<Metar>;
-  @Input() station_tmp?: Observable<Station>;
-  @Input() taf_tmp?: Observable<Taf>;
+  @Input()
+  queryIn?: string;
 
-  @Input() data?: any[];
+  query: string = "";
 
-  $metar? = new Array<any>();
-  $station? = new Array<any>();
-  $taf? = new Array<any>();
+  data = new Data();
+
+  $dati? = new Observable<any>();
+
+  $metar?:Array<any>;
+  $station?: Array<Station>;
+  $taf?: Array<Taf>;
 
   metar_stat = false;
   station_stat = false;
   taf_stat = false;
+
+
+  met?: Metar[] = []
+  stat = false;
+
+
   
-  constructor() { }
+  constructor(private APIService: FetchDataService) { }
 
-  ngOnChanges(changes: SimpleChanges): void {   
-
-    // - TODO: FIX porting dati in unico elemento 
-    // (Creiamo un modulo apposta per portarci dietro i dati.)
-
-
-    if (!changes['data'].firstChange) {
-      //this.$metar?.push(this.data?[0]);
-
-
-    }
-
-    // console.log("METAR");
-    // console.log(this.metar_tmp);
-
-    // console.log("STATION");
-    // console.log(this.station_tmp);
-
-    // console.log("TAF");
-    // console.log(this.taf_tmp);
+  ngOnChanges(changes: SimpleChanges): void {
     
-    // // console.log(this.metar_stat);
-    // // console.log(this.station_stat);
-    // // console.log(this.taf_stat);
-    
-    // // ALL
-    // // console.log("Change METAR -> " + changes['metar_tmp'].firstChange);
-    // // console.log("Change STATION -> " + changes['station_tmp'].firstChange);
-    // // console.log("Change TAF -> " + changes['taf_tmp'].firstChange);
+    if (!changes['queryIn'].firstChange) {
+      
+      if (changes['queryIn'].currentValue.length == 4) {
+        console.log(changes['queryIn'].currentValue);
+        this.query = changes['queryIn'].currentValue
+        // const met = this.searchMetar(changes['queryIn'].currentValue)
+        // const sta = this.searchStation(changes['queryIn'].currentValue)
+        // const taf = this.searchTaf(changes['queryIn'].currentValue)
 
-    // if (!changes['metar_tmp'].firstChange || !changes['metar_tmp'].firstChange || !changes['taf_tmp'].firstChange) {
-    //   // this.metar = changes['metar'].currentValue
-    //   changes['metar_tmp'].currentValue.forEach((item: any) => {
-    //     this.$metar?.push(item)
-    //   });
-    //   changes['station_tmp'].currentValue.forEach((item: any) => {
-    //     this.$station?.push(item)
-    //   });
-    //   changes['taf_tmp'].currentValue.forEach((item: any) => {
-    //     this.$taf?.push(item)
-    //   });
-    //   this.metar_stat = true;
-    //   this.station_stat = true;
-    //   this.taf_stat = true;
-    //}
-
-    /*
-    //-----------------------------------------------------------------
-    // METAR
-    console.log("Change METAR -> " + changes['metar_tmp'].firstChange);
-    if (!changes['metar_tmp'].firstChange) {
-      // this.metar = changes['metar'].currentValue
-      changes['metar_tmp'].currentValue.forEach((item: any) => {
-        this.$metar?.push(item)
-      });
-      this.metar_stat = true;
+        this.APIService.getMetar(this.query).subscribe(met =>{
+          this.met = met
+          console.log(met);
+          
+        });
+        this.stat = true;
+        
+      }
+      
     }
-
-    // STATION
-    console.log("Change STATION -> " + changes['station_tmp'].firstChange);
-    if (!changes['station_tmp'].firstChange) {
-      // this.metar = changes['metar'].currentValue
-      changes['station_tmp'].currentValue.forEach((item: any) => {
-        this.$station?.push(item)
-      });
-      this.station_stat = true;
-    }
-
-    // TAF
-    console.log("Change TAF -> " + changes['taf_tmp'].firstChange);
-    if (!changes['taf_tmp'].firstChange) {
-      // this.metar = changes['metar'].currentValue
-      changes['taf_tmp'].currentValue.forEach((item: any) => {
-        this.$taf?.push(item)
-      });
-      this.taf_stat = true;
-    }*/
   }
 
   ngOnInit(): void {
 
+  }
+
+  // ! TODO: Port
+  onClick(){
+    this.APIService.getMetar(this.query).subscribe(met =>{
+      this.met = met
+      console.log(met);
+      
+    });
+    
+    
+  }
+  
+  show(){
+    console.log(this.query);
+    console.log(this.met);
+    this.stat = true;
+
+  }
+
+  searchMetar(query: string): Array<Metar> {
+    console.log("searchMetar() -> " + query);
+    let met = Array<Metar>();
+
+    this.$dati = this.APIService.getMetar(query);
+
+    this.$dati.forEach(data => {
+      // console.log(data.data);
+      
+      this.$metar = data.data;
+
+      // met = this.data.setMetar(data.data)
+      // console.log(met);
+    })
+    console.log(this.$metar);
+    
+    return met
+  }
+
+  searchStation(query: string): Array<Station> {
+    console.log("searchStation() -> " + query);
+    let sta = Array<Station>();
+
+    this.APIService.getStation(query).forEach((data:any) => {
+      this.$station?.push(data.data)
+
+      // sta = this.data.setStation(data.data)
+      // console.log(sta);
+      
+    })
+    console.log(this.$station);
+    return sta
+  }
+
+  searchTaf(query: string): Array<Taf> {
+    console.log("searchTaf() -> " + query);
+    let taf = Array<Taf>();
+
+    this.APIService.getTaf(query).forEach((data:any) => {
+      this.$taf?.push(data.data)
+
+      // taf = this.data.setTaf(data.data)
+      // console.log(data.data);
+    })
+    console.log(this.$taf);
+    return taf
   }
 
 }
