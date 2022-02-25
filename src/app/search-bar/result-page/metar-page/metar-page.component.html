@@ -1,2 +1,28 @@
-<p>{{metar | json}}</p>
+<!-- <p>{{metar | json}}</p> -->
+<div class="container" *ngFor="let met of metar">
+    <h1 class="title">
+        {{met.station.name}} Metar
+    </h1>
 
+    <div class="info">
+        <!-- CAT -->
+        <div class="cat info_item">
+            <div class="top">
+                <h3>{{met.flight_category}}</h3>
+            </div>
+            <div class="detail">
+                {{met.visibility.meters}}
+            </div>
+        </div>
+
+        <!-- WIND -->
+        <div class="cat info_item">
+            <div class="top">
+                <h3>{{met.wind.speed_kts}}</h3>
+            </div>
+            <div class="detail">
+                {{met.wind.degrees}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+.title{
+
+}
+
+.cat{
+
+}
+
+.info{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info_item{
+    flex: 1 1 100px;
+
+    border-radius: .5rem!important;
+    background-color: #00498a!important;
+    cursor: pointer;
+    text-align: center!important;
+    height: 100%!important;
+    flex-direction: column!important;
+    box-sizing: border-box;
+    width: 100%!important;
+    padding: .20em!important;
+    border-top-left-radius: .5rem!important;
+    border-top-right-radius: .5rem!important;
+    transition: opacity 75ms;
+
+}
+
+.top{
+
+}
+.detail{
+    background-color: #28a745!important;
+}
