@@ -18,21 +18,18 @@ export class ResultPageComponent implements OnInit, OnChanges {
 
   query: string = "";
 
-  data = new Data();
-
   $dati? = new Observable<any>();
-
-  $metar?:Array<any>;
-  $station?: Array<Station>;
-  $taf?: Array<Taf>;
 
   metar_stat = false;
   station_stat = false;
   taf_stat = false;
 
 
-  met?: Metar[] = []
-  stat = false;
+  metar?: Metar[] = []
+  station?: Station[] = []
+  taf?: Taf[] = []
+
+  data = new Data()
 
 
   
@@ -49,13 +46,37 @@ export class ResultPageComponent implements OnInit, OnChanges {
         // const sta = this.searchStation(changes['queryIn'].currentValue)
         // const taf = this.searchTaf(changes['queryIn'].currentValue)
 
-        this.APIService.getMetar(this.query).subscribe(met =>{
-          this.met = met
-          console.log(met);
+        // GET METAR
+        this.APIService.getMetar(this.query).subscribe(item =>{
+          // console.log("ITEM");
+          // console.log(item);
+          item.data.forEach((item: any) => {
+            console.log(item);
+            this.metar?.push(item);
+          })
           
+          this.metar_stat = true;
         });
-        this.stat = true;
-        
+
+        // GET STATION
+        this.APIService.getStation(this.query).subscribe(item =>{
+          item.data.forEach((item: any) => {
+            console.log(item);
+            this.station?.push(item);
+          })
+          
+          this.station_stat = true;
+        });
+
+        // GET TAF
+        this.APIService.getTaf(this.query).subscribe(item =>{
+          item.data.forEach((item: any) => {
+            console.log(item);
+            this.taf?.push(item);
+          })
+          
+          this.taf_stat = true;
+        });
       }
       
     }
@@ -65,70 +86,52 @@ export class ResultPageComponent implements OnInit, OnChanges {
 
   }
 
-  // ! TODO: Port
-  onClick(){
-    this.APIService.getMetar(this.query).subscribe(met =>{
-      this.met = met
-      console.log(met);
+  // searchMetar(query: string): Array<Metar> {
+  //   console.log("searchMetar() -> " + query);
+  //   let met = Array<Metar>();
+
+  //   this.$dati = this.APIService.getMetar(query);
+
+  //   this.$dati.forEach(data => {
+  //     // console.log(data.data);
       
-    });
+  //     this.$metar = data.data;
+
+  //     // met = this.data.setMetar(data.data)
+  //     // console.log(met);
+  //   })
+  //   console.log(this.$metar);
     
-    
-  }
-  
-  show(){
-    console.log(this.query);
-    console.log(this.met);
-    this.stat = true;
+  //   return met
+  // }
 
-  }
+  // searchStation(query: string): Array<Station> {
+  //   console.log("searchStation() -> " + query);
+  //   let sta = Array<Station>();
 
-  searchMetar(query: string): Array<Metar> {
-    console.log("searchMetar() -> " + query);
-    let met = Array<Metar>();
+  //   this.APIService.getStation(query).forEach((data:any) => {
+  //     this.$station?.push(data.data)
 
-    this.$dati = this.APIService.getMetar(query);
-
-    this.$dati.forEach(data => {
-      // console.log(data.data);
+  //     // sta = this.data.setStation(data.data)
+  //     // console.log(sta);
       
-      this.$metar = data.data;
+  //   })
+  //   console.log(this.$station);
+  //   return sta
+  // }
 
-      // met = this.data.setMetar(data.data)
-      // console.log(met);
-    })
-    console.log(this.$metar);
-    
-    return met
-  }
+  // searchTaf(query: string): Array<Taf> {
+  //   console.log("searchTaf() -> " + query);
+  //   let taf = Array<Taf>();
 
-  searchStation(query: string): Array<Station> {
-    console.log("searchStation() -> " + query);
-    let sta = Array<Station>();
+  //   this.APIService.getTaf(query).forEach((data:any) => {
+  //     this.$taf?.push(data.data)
 
-    this.APIService.getStation(query).forEach((data:any) => {
-      this.$station?.push(data.data)
-
-      // sta = this.data.setStation(data.data)
-      // console.log(sta);
-      
-    })
-    console.log(this.$station);
-    return sta
-  }
-
-  searchTaf(query: string): Array<Taf> {
-    console.log("searchTaf() -> " + query);
-    let taf = Array<Taf>();
-
-    this.APIService.getTaf(query).forEach((data:any) => {
-      this.$taf?.push(data.data)
-
-      // taf = this.data.setTaf(data.data)
-      // console.log(data.data);
-    })
-    console.log(this.$taf);
-    return taf
-  }
+  //     // taf = this.data.setTaf(data.data)
+  //     // console.log(data.data);
+  //   })
+  //   console.log(this.$taf);
+  //   return taf
+  // }
 
 }

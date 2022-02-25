@@ -1,38 +1,23 @@
-<!-- <mat-tab-group>
-    <mat-tab *ngIf="$metar" label="Metar"> Metar {{}}</mat-tab>
-    <mat-tab *ngIf="$station" label="Station"> Content 2 </mat-tab>
-    <mat-tab *ngIf="$taf" label="Taf"> Content 3 </mat-tab>
-</mat-tab-group> -->
+<mat-tab-group>
+    <mat-tab *ngIf="metar_stat" label="Metar">
+        <app-metar-page [metar]="metar"></app-metar-page>
+    </mat-tab>
+    <mat-tab *ngIf="station_stat" label="Station">
+        <app-station-page [station]="station"></app-station-page>
+    </mat-tab>
+    <mat-tab *ngIf="taf_stat" label="Taf">
+        <app-taf-page [taf]="taf"></app-taf-page>
+    </mat-tab>
+</mat-tab-group>
 
-<h1>{{queryIn}}</h1>
+<!-- <h1>{{queryIn}}</h1> -->
 
-<button mat-button (click)="onClick()">Action</button>
-<button mat-button (click)="show()">Sghow</button>
+<!-- <button mat-button (click)="onClick()">Action</button>
+<button mat-button (click)="show()">Sghow</button> -->
 
-<div *ngIf="stat">
-    {{met | json}}
-</div>
-
-
-
-<div class="container">
-    <mat-card class="example-card" *ngFor="let item in $metar">
-        <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Aereoporto {{item.icao}}</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-            <p>
-                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                bred for hunting.
-            </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-        </mat-card-actions>
-    </mat-card>
-</div>
+<!-- <div *ngIf="metar_stat">
+    {{metar | json}} <hr>
+    {{station | json}} <hr>
+    {{taf | json}} <hr>
+    
+</div> -->

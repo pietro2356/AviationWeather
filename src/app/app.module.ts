@@ -14,13 +14,19 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { ResultPageComponent } from './search-bar/result-page/result-page.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MetarPageComponent } from './search-bar/result-page/metar-page/metar-page.component';
+import { StationPageComponent } from './search-bar/result-page/station-page/station-page.component';
+import { TafPageComponent } from './search-bar/result-page/taf-page/taf-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SearchBarComponent,
-    ResultPageComponent
+    ResultPageComponent,
+    MetarPageComponent,
+    StationPageComponent,
+    TafPageComponent
   ],
   imports: [
     BrowserModule,
