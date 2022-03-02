@@ -23,6 +23,7 @@ export class ResultPageComponent implements OnInit, OnChanges {
   metar_stat = false;
   station_stat = false;
   taf_stat = false;
+  fire_stat = true;
 
 
   metar?: Metar[] = []
@@ -40,6 +41,10 @@ export class ResultPageComponent implements OnInit, OnChanges {
     if (!changes['queryIn'].firstChange) {
       
       if (changes['queryIn'].currentValue.length == 4) {
+        this.metar = [];
+        this.station = [];
+        this.taf = [];
+
         console.log(changes['queryIn'].currentValue);
         this.query = changes['queryIn'].currentValue
         // const met = this.searchMetar(changes['queryIn'].currentValue)

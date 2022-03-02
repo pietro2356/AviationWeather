@@ -1,12 +1,28 @@
+<div class="container">
+    <button mat-raised-button color="warn" class="btn">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">local_fire_department</mat-icon>
+        Upload from FireBase 
+        <mat-icon aria-hidden="false" aria-label="Example home icon">file_upload</mat-icon>
+    </button>
+    <button mat-raised-button style="background-color: #ffd740; color: #323232" class="btn">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">local_fire_department</mat-icon>
+        Download from FireBase 
+        <mat-icon aria-hidden="false" aria-label="Example home icon">file_download</mat-icon>
+    </button>
+</div>
+
 <mat-tab-group>
     <mat-tab *ngIf="metar_stat" label="Metar">
         <app-metar-page [metar]="metar"></app-metar-page>
-    </mat-tab>
+    </mat-tab>  
     <mat-tab *ngIf="station_stat" label="Station">
         <app-station-page [station]="station"></app-station-page>
     </mat-tab>
     <mat-tab *ngIf="taf_stat" label="Taf">
         <app-taf-page [taf]="taf"></app-taf-page>
+    </mat-tab>
+    <mat-tab *ngIf="taf_stat" label="FireBase">
+        TO-DO
     </mat-tab>
 </mat-tab-group>
 

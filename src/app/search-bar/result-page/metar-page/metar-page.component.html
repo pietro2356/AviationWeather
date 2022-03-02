@@ -1,28 +1,74 @@
 <!-- <p>{{metar | json}}</p> -->
 <div class="container" *ngFor="let met of metar">
-    <h1 class="title">
+    <h1 class="title" style="color: #69F0AE">
         {{met.station.name}} Metar
     </h1>
+    <mat-divider></mat-divider>
 
-    <div class="info">
+    <!-- <ul>
+        <li class="text" *ngFor="let item of menu | async">
+            Nome: {{item.nome}} <br>
+            ID: {{item.code}}
+            <hr>
+        </li>
+    </ul>
+    <div *ngFor="let item of items">
+        <p *ngFor="let val of item | keyvalue">
+            {{'KEY: ' + val.key + ', VALUE: ' + val.value }}
+        </p>
+    </div> -->
+
+    <ul>
+        <li class="text" *ngFor="let val of met | keyvalue ">
+            <!-- {{val.key + ' &#8594 ' + val.value | json}} -->
+            <h2 style="color: #F44336">{{val.key}} <span> &#8594; </span> </h2> 
+            <h3>{{met[val.key] | json}}</h3>
+        </li>
+    </ul>
+
+
+    <div class="container__info">
         <!-- CAT -->
-        <div class="cat info_item">
+        <div class="cat item__info night">
             <div class="top">
-                <h3>{{met.flight_category}}</h3>
+                <h3>CAT {{met.flight_category}}</h3>
             </div>
             <div class="detail">
-                {{met.visibility.meters}}
+                {{met.visibility.meters}}m
             </div>
         </div>
 
         <!-- WIND -->
-        <div class="cat info_item">
+        <div class="cat item__info night">
             <div class="top">
-                <h3>{{met.wind.speed_kts}}</h3>
+                <h3>{{met.wind.speed_kts}}kt</h3>
             </div>
             <div class="detail">
-                {{met.wind.degrees}}
+                {{met.wind.degrees}}°
             </div>
         </div>
+
+        <!-- VISIBILITY -->
+        <div class="cat item__info night">
+            <div class="top">
+                <h3>{{met.visibility.meters}} m</h3>
+            </div>
+            <div class="detail">
+                {{met.visibility.miles_float}}ml
+            </div>
+        </div>
+
+
+        <!-- CLOUD -->
+        <!-- PRESSURE -->
+        <div class="cat item__info night">
+            <div class="top">
+                <h3>{{met.barometer.hpa}}hpa</h3>
+            </div>
+            <div class="detail">
+                {{met.barometer.hg}}hg
+            </div>
+        </div>
+
     </div>
 </div>

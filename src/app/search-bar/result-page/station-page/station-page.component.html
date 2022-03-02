@@ -1,1 +1,15 @@
-<p>{{station | json}}</p>
+<div class="container"  *ngFor="let stat of station">
+    <h1 class="title" style="color: #69F0AE">
+        {{stat.icao}} Station
+    </h1>
+    <mat-divider></mat-divider>
+
+    <ul>
+        <li class="text" *ngFor="let val of stat | keyvalue ">
+            <!-- {{val.key + ' &#8594 ' + val.value | json}} -->
+            <h2 style="color: #F44336">{{val.key}} <span> &#8594; </span> </h2> 
+            <h3>{{stat[val.key] | json}}</h3>
+        </li>
+    </ul>
+
+</div>

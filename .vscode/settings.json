@@ -4,6 +4,7 @@
         "Dewpoint",
         "firestore",
         "Firestore",
+        "keyvalue",
         "Metar",
         "searchbar"
     ]
