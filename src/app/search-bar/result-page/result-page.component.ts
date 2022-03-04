@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DocumentData, QuerySnapshot } from '@angular/fire/compat/firestore';
-import { Observable} from 'rxjs';
+import { map, Observable} from 'rxjs';
 import { Data } from 'src/app/models/data.model';
 import { Metar } from 'src/app/models/metar.model';
 import { Station } from 'src/app/models/station.model';
@@ -26,7 +26,7 @@ export class ResultPageComponent implements OnInit, OnChanges {
   metar_stat = false;
   station_stat = false;
   taf_stat = false;
-  fire_stat = true;
+  fire_stat = false;
 
 
   metar?: Metar[] = []
@@ -36,19 +36,51 @@ export class ResultPageComponent implements OnInit, OnChanges {
   data = new Data()
 
   stationRemoteCollection: Station[] | any[] = [];
-
+  stat: any;
 
 
   
   constructor(private APIService: FetchDataService, private FireService: FirebaseDataService) { 
-    
-  }
-  ngOnInit(): void {
 
+  }
+
+  ngOnInit(): void {
+    this.retrieveTutorials();
+  }
+
+  refreshList(): void {
+    this.retrieveTutorials();
+  }
+
+  retrieveTutorials(): void {
+    this.FireService.getStation().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
+        )
+      )
+    ).subscribe(data => {
+      this.stat = data;
+    });
+    this.fire_stat = true;
+  }
+
+  async saveStation() {
+    this.station?.forEach((st: Station) => {
+      console.log(st);
+      this.FireService.createStation(st).then(() => {
+        console.log(st);
+        console.log('Created new item successfully!');
+      });
+    })
   }
   
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.metar_stat = false;
+    this.station_stat = false;
+    this.taf_stat = false;
+    this.fire_stat = false;
     
     if (!changes['queryIn'].firstChange) {
       
