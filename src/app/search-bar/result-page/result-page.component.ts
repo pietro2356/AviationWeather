@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { DocumentData, QuerySnapshot } from '@angular/fire/compat/firestore';
+import { Observable} from 'rxjs';
 import { Data } from 'src/app/models/data.model';
 import { Metar } from 'src/app/models/metar.model';
 import { Station } from 'src/app/models/station.model';
 import { Taf } from 'src/app/models/taf.model';
 import { FetchDataService } from 'src/app/services/fetch-data.service';
+import { FirebaseDataService } from 'src/app/services/firebase-data.service';
 @Component({
   selector: 'app-result-page',
   templateUrl: './result-page.component.html',
@@ -20,6 +22,7 @@ export class ResultPageComponent implements OnInit, OnChanges {
 
   $dati? = new Observable<any>();
 
+
   metar_stat = false;
   station_stat = false;
   taf_stat = false;
@@ -32,9 +35,18 @@ export class ResultPageComponent implements OnInit, OnChanges {
 
   data = new Data()
 
+  stationRemoteCollection: Station[] | any[] = [];
+
+
 
   
-  constructor(private APIService: FetchDataService) { }
+  constructor(private APIService: FetchDataService, private FireService: FirebaseDataService) { 
+    
+  }
+  ngOnInit(): void {
+
+  }
+  
 
   ngOnChanges(changes: SimpleChanges): void {
     
@@ -86,57 +98,5 @@ export class ResultPageComponent implements OnInit, OnChanges {
       
     }
   }
-
-  ngOnInit(): void {
-
-  }
-
-  // searchMetar(query: string): Array<Metar> {
-  //   console.log("searchMetar() -> " + query);
-  //   let met = Array<Metar>();
-
-  //   this.$dati = this.APIService.getMetar(query);
-
-  //   this.$dati.forEach(data => {
-  //     // console.log(data.data);
-      
-  //     this.$metar = data.data;
-
-  //     // met = this.data.setMetar(data.data)
-  //     // console.log(met);
-  //   })
-  //   console.log(this.$metar);
-    
-  //   return met
-  // }
-
-  // searchStation(query: string): Array<Station> {
-  //   console.log("searchStation() -> " + query);
-  //   let sta = Array<Station>();
-
-  //   this.APIService.getStation(query).forEach((data:any) => {
-  //     this.$station?.push(data.data)
-
-  //     // sta = this.data.setStation(data.data)
-  //     // console.log(sta);
-      
-  //   })
-  //   console.log(this.$station);
-  //   return sta
-  // }
-
-  // searchTaf(query: string): Array<Taf> {
-  //   console.log("searchTaf() -> " + query);
-  //   let taf = Array<Taf>();
-
-  //   this.APIService.getTaf(query).forEach((data:any) => {
-  //     this.$taf?.push(data.data)
-
-  //     // taf = this.data.setTaf(data.data)
-  //     // console.log(data.data);
-  //   })
-  //   console.log(this.$taf);
-  //   return taf
-  // }
 
 }
