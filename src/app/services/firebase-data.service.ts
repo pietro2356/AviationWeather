@@ -11,70 +11,46 @@ import { Station } from '../models/station.model';
 })
 export class FirebaseDataService {
 
-  private dbPath = 'station';
-  stationRef: AngularFirestoreCollection<Station>;
+  private strCollection = "station";
 
 
-  constructor(private db: AngularFirestore){
-    this.stationRef = db.collection(this.dbPath);
+  constructor(private firestore: AngularFirestore){ }
+
+  getAllStation(){
+    return this.firestore.collection(this.strCollection).snapshotChanges();
   }
 
-  getStation(){
-    return this.stationRef;
+  getStationDoc(id: string){
+    return this.firestore.collection(this.strCollection).doc(id).snapshotChanges()
   }
 
   createStation(station: Station){
-    return this.stationRef.add(station);
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+          .collection(this.strCollection)
+          .add(station)
+          .then(
+            res => {
+              console.log(res);
+            },
+            err => {
+              console.log(err);
+            })
+    });
   }
 
-  updateStation(id: string, data: Station){
-    return this.stationRef.doc(id).update(data);
+  deleteStation(station: Station){
+    return this.firestore
+                .collection(this.strCollection)
+                .doc(station.id)
+                .delete()
   }
 
-  deleteStation(id: string){
-    return this.stationRef.doc(id).delete();
+
+  updateStation(station: Station){
+    return this.firestore
+                .collection(this.strCollection)
+                .doc(station.icao)
+                .update(station);
   }
-
-  // db: Firestore;
-  // stationCol: CollectionReference<DocumentData>;
-  // private updatedSnap = new Subject<QuerySnapshot<DocumentData>>();
-  // obsr_UpdatedSnap = this.updatedSnap.asObservable();
-
-  
-  // constructor() {
-  //   // FIREBASE
-  //   initializeApp(environment.firebaseConfig);
-  //   this.db = getFirestore();
-  //   this.stationCol = collection(this.db, 'station');
-
-  //   onSnapshot(this.stationCol, (snap) => {
-  //     this.updatedSnap.next(snap);
-  //   }, (err) => {
-  //     console.log(err);
-  //   })
-  // }
-
-
-  // async getStation() {
-  //   const snap = await getDocs(this.stationCol)
-  //   return snap;
-  // }
-
-  // async addStation(station: Station) {
-  //   await addDoc(this.stationCol, station);
-  //   return;
-  // }
-
-  // async deleteStation(stationID: string) {
-  //   const docRef = doc(this.db, 'station', stationID)
-  //   await deleteDoc(docRef);
-  //   return;
-  // }
-
-  // async updateStation(docId: string, station: Station) {
-  //   const docRef = doc(this.db, 'students', docId);
-  //   // JSON.parse(employeeString)
-  //   await updateDoc(docRef, JSON.parse(station.toString()), station)
-  //   return;
-  // }
 }

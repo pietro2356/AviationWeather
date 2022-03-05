@@ -45,36 +45,8 @@ export class ResultPageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.retrieveTutorials();
-  }
 
-  refreshList(): void {
-    this.retrieveTutorials();
   }
-
-  retrieveTutorials(): void {
-    this.FireService.getStation().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      this.stat = data;
-    });
-    this.fire_stat = true;
-  }
-
-  async saveStation() {
-    this.station?.forEach((st: Station) => {
-      console.log(st);
-      this.FireService.createStation(st).then(() => {
-        console.log(st);
-        console.log('Created new item successfully!');
-      });
-    })
-  }
-  
 
   ngOnChanges(changes: SimpleChanges): void {
     this.metar_stat = false;

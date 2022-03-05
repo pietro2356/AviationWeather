@@ -1,4 +1,5 @@
 export interface Station {
+    id:        string;
     city:      string;
     country:   Country;
     elevation: Elevation;
