@@ -26,7 +26,7 @@ export class ResultPageComponent implements OnInit, OnChanges {
   metar_stat = false;
   station_stat = false;
   taf_stat = false;
-  fire_stat = false;
+  fire_stat = true;
 
 
   metar?: Metar[] = []
@@ -35,17 +35,20 @@ export class ResultPageComponent implements OnInit, OnChanges {
 
   data = new Data()
 
-  stationRemoteCollection: Station[] | any[] = [];
-  stat: any;
-
-
   
   constructor(private APIService: FetchDataService, private FireService: FirebaseDataService) { 
 
   }
-
   ngOnInit(): void {
+    
+  }
 
+  onSubmit(){
+    if (this.station_stat && this.station?.length != 0) {
+      this.station?.forEach((item: Station) => {
+        this.FireService.createStation(item);
+      })
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

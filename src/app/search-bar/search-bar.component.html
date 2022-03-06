@@ -2,28 +2,16 @@
     <mat-form-field id="item-0" appearance="fill">
         <mat-label color="warn">ICAO, IATA or Name</mat-label>
         <input matInput type="text" [(ngModel)]="query">
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="search()">
+        <button matSuffix mat-icon-button aria-label="Clear">
             <mat-icon>search</mat-icon>
+        </button>
+        <button matSuffix mat-icon-button aria-label="Clear" *ngIf="query.length == 4" (click)="save()">
+            <mat-icon>star</mat-icon>
         </button>
         <mat-hint align="start"><strong>{{query}}</strong> </mat-hint>
         <mat-hint align="end">{{query.length}} / 50</mat-hint>
     </mat-form-field>
-    <!-- <button id="item-1" color="primary" *ngIf="query" mat-raised-button aria-label="Button that shows a red tooltip"
-        (click)="searchMetar()">
-        METAR
-        <mat-icon color="warn">location_on</mat-icon>
-    </button>
-    <button id="item-2" color="primary" *ngIf="query" matSuffix mat-raised-button aria-label="Clear"
-        (click)="searchStation()">
-        STATION
-        <mat-icon color="warn">device_thermostat</mat-icon>
-    </button>
-    <button id="item-3" color="primary" *ngIf="query" matSuffix mat-raised-button aria-label="Clear"
-        (click)="searchTaf()">
-        TAF
-        <mat-icon color="warn">air</mat-icon>
-    </button> -->
+    
 </div>
-<mat-divider></mat-divider>
 <app-result-page [queryIn]="query">
 </app-result-page>

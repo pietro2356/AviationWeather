@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MetarPageComponent } from './search-bar/result-page/metar-page/metar-page.component';
 import { StationPageComponent } from './search-bar/result-page/station-page/station-page.component';
 import { TafPageComponent } from './search-bar/result-page/taf-page/taf-page.component';
+import { FirepageComponent } from './firepage/firepage.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { TafPageComponent } from './search-bar/result-page/taf-page/taf-page.com
     ResultPageComponent,
     MetarPageComponent,
     StationPageComponent,
-    TafPageComponent
+    TafPageComponent,
+    FirepageComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

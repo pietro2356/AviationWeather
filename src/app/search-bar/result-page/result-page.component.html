@@ -1,16 +1,3 @@
-<div class="container">
-    <button mat-raised-button color="warn" class="btn">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">local_fire_department</mat-icon>
-        Upload from FireBase
-        <mat-icon aria-hidden="false" aria-label="Example home icon">file_upload</mat-icon>
-    </button>
-    <button mat-raised-button style="background-color: #ffd740; color: #323232" class="btn">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">local_fire_department</mat-icon>
-        Download from FireBase
-        <mat-icon aria-hidden="false" aria-label="Example home icon">file_download</mat-icon>
-    </button>
-</div>
-
 <mat-tab-group>
     <mat-tab *ngIf="metar_stat" label="Metar">
         <app-metar-page [metar]="metar"></app-metar-page>
@@ -21,24 +8,12 @@
     <mat-tab *ngIf="taf_stat" label="Taf">
         <app-taf-page [taf]="taf"></app-taf-page>
     </mat-tab>
-    <mat-tab *ngIf="fire_stat" label="FireBase">
+    <!-- <mat-tab label="FireBase">
         <ul>
-            <li class="text" *ngFor="let item of stat | async">
+            <li class="text" *ngFor="let item of stationList">
                 {{item | json}}
                 <hr>
             </li>
         </ul>
-    </mat-tab>
+    </mat-tab> -->
 </mat-tab-group>
-
-<!-- <h1>{{queryIn}}</h1> -->
-
-<!-- <button mat-button (click)="onClick()">Action</button>
-<button mat-button (click)="show()">Sghow</button> -->
-
-<!-- <div *ngIf="metar_stat">
-    {{metar | json}} <hr>
-    {{station | json}} <hr>
-    {{taf | json}} <hr>
-    
-</div> -->
