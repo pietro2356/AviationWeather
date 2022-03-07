@@ -2,11 +2,6 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Data } from '../models/data.model';
-import { Metar } from "../models/metar.model"
-import { Station } from "../models/station.model"
-import { Taf } from '../models/taf.model';
-
 
 
 
@@ -33,6 +28,22 @@ export class FetchDataService {
       headers: this.httpOptions.headers
     });
   }
+
+  getMetarRAW(code: String): string {
+    let tmp = this.http.get<any>(this.metarAPI + code, {
+      headers: this.httpOptions.headers
+    });
+
+    tmp.subscribe(item =>{
+      item.data.forEach((item: any) => {
+        return item;
+      })
+    });
+
+    return '';
+  }
+
+
 
   getStation(station: String): Observable<any> {
     return this.http.get<any>(this.stationAPI + station, {

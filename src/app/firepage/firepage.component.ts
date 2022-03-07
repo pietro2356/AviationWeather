@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Station } from '../models/station.model';
+import { FetchDataService } from '../services/fetch-data.service';
 import { FirebaseDataService } from '../services/firebase-data.service';
 
 @Component({
@@ -11,7 +12,9 @@ export class FirepageComponent implements OnInit {
 
   stationList: Station[] = [];
 
-  constructor(private FireService: FirebaseDataService) { }
+  metarSelected: string = '';
+
+  constructor(private FireService: FirebaseDataService, private APIService: FetchDataService) { }
 
   ngOnInit(): void {
     this.FireService.getAllStation().subscribe(res => {
@@ -26,6 +29,21 @@ export class FirepageComponent implements OnInit {
 
   onDelete(station: Station){
     this.FireService.deleteStation(station)
+  }
+
+  openDialog(stationICAO: string, nameStat: string): void {
+    // const dialogRef = this.dialog.open(MetardialogComponent, {
+    //   width: '300px',
+    //   data: {
+    //     metar: this.APIService.getMetarRAW(stationICAO),
+    //     icao: stationICAO,
+    //     name: nameStat
+    //   }
+    // });
+
+    // dialogRef.afterClosed().subscribe((result: any) => {
+    //   console.log('The dialog was closed');
+    // });
   }
 
 }

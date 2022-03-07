@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-
+<!-- (click)="openDialog(stat.icao, stat.name)" -->
 <!-- <ul>
     <li class="text" *ngFor="let item of stationList">
         {{item | json}}
@@ -20,9 +20,8 @@
             Lon: {{stat.longitude.degrees}}
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button>ESPANDI</button>
+            <button mat-raised-button  color="accent">METAR</button>
             <button mat-button (click)="onDelete(stat)">ELIMINA</button>
         </mat-card-actions>
     </mat-card>
-
 </div>

@@ -10,6 +10,8 @@
         "Firestore",
         "keyvalue",
         "Metar",
+        "metardialog",
+        "Metardialog",
         "searchbar"
     ]
 }
