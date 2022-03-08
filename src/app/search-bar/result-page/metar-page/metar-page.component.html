@@ -1,8 +1,14 @@
 <!-- <p>{{metar | json}}</p> -->
 <div class="container" *ngFor="let met of metar">
-    <h1 class="title" style="color: #69F0AE">
-        {{met.station.name}} Metar
-    </h1>
+    <div class="metar">
+        <h1 class="title" style="color: #69F0AE">
+            {{met.station.name}} Metar
+        </h1>
+        <h2>
+            <span>{{met.raw_text}}</span>
+        </h2>
+    </div>
+
     <mat-divider></mat-divider>
 
     <!-- <ul>
@@ -21,7 +27,7 @@
     <ul>
         <li class="text" *ngFor="let val of met | keyvalue ">
             <!-- {{val.key + ' &#8594 ' + val.value | json}} -->
-            <h2 style="color: #F44336">{{val.key}} <span> &#8594; </span> </h2> 
+            <h2 style="color: #F44336">{{val.key}} <span> &#8594; </span> </h2>
             <h3>{{met[val.key] | json}}</h3>
         </li>
     </ul>
