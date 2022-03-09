@@ -26,11 +26,11 @@ export class SearchBarComponent implements OnInit {
   data? = new Data();
 
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   save() {
     this.saveOnFire.onSubmit();
-    this.router.navigate(['/fire'])
+    
   }
 
   ngOnInit(): void {

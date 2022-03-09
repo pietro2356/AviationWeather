@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DocumentData, QuerySnapshot } from '@angular/fire/compat/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { map, Observable} from 'rxjs';
 import { Data } from 'src/app/models/data.model';
 import { Metar } from 'src/app/models/metar.model';
@@ -36,18 +38,29 @@ export class ResultPageComponent implements OnInit, OnChanges {
   data = new Data()
 
   
-  constructor(private APIService: FetchDataService, private FireService: FirebaseDataService) { 
+  constructor(private APIService: FetchDataService, private FireService: FirebaseDataService, private router: Router, private snackBar: MatSnackBar) { 
 
   }
   ngOnInit(): void {
     
   }
+  openSnackBar(message: string) {
+    this.snackBar.open(message);
+  }
 
   onSubmit(){
     if (this.station_stat && this.station?.length != 0) {
       this.station?.forEach((item: Station) => {
-        this.FireService.createStation(item);
+        console.log(this.FireService.createStation(item));
+        
+        if(this.FireService.createStation(item)){
+          this.openSnackBar("L'aeroporto '" + item.icao + "' è stato salvato con successo!")
+        }else{
+          this.openSnackBar("L'aeroporto '" + item.icao + "' è gia stato salvato!")
+        }
+        
       })
+      this.router.navigate(['/fire'])
     }
   }
 
